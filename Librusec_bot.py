@@ -25,10 +25,10 @@ except Exception:
 
 # 2. Пути к файлам и директориям (универсальные пути ВНУТРИ контейнера)
 # Все эти пути будут определены в секции environment в docker-compose.yml
-READER_FOLDER = os.getenv('READER_FOLDER', '/app/data/reader')
-INPX_FILE = os.getenv('INPX_FILE', '/app/books/librusec_local_fb2.inpx')
-BOOKS_DIR = os.getenv('BOOKS_DIR', '/app/books')
-DOWNLOAD_FOLDER = os.getenv('DOWNLOAD_FOLDER', '/app/data/downloads')
+
+INPX_FILE = "/app/books/librusec_local_fb2.inpx"
+BOOKS_DIR = "/app/books"
+DOWNLOAD_FOLDER = "/app/data/downloads"
 USERS_JSON_FILE = "/app/data/users_librusec.json"
 PENDING_USERS_JSON_FILE = "/app/data/pending_users_librusec.json"
 LOG_FILE = "/app/log/Log_librusecBase_bot.log"
@@ -48,7 +48,7 @@ if not BOT_TOKEN:
     
 # Создание директорий, чтобы избежать ошибок
 os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
-os.makedirs(READER_FOLDER, exist_ok=True)
+
 
 # Поля в .inp файле
 FIELDS = ['AUTHOR', 'GENRE', 'TITLE', 'SERIES', 'SERNO', 'FILE', 'SIZE', 'LIBID', 'DEL', 'EXT', 'DATE', 'LANG', 'RATING', 'KEYWORDS']
