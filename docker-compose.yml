@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  librusec_bot: 
+    # Имя контейнера
+    container_name: librusec-base-bot # Изменено для ясности
+    # Собираем образ из Dockerfile в текущей папке
+    build: .
+    restart: always
+    
+    # Команда для запуска
+    command: ["python", "Librusec_bot.py"]
+    
+    volumes:
+      # 1. Монтируем папку с ЛИБРУСЕК библиотекой на /app/books в контейнере
+      - E:/Books/_Lib.rus.ec - Официальная:/app/books:ro 
+      # 2. Монтируем папку для данных (логи, downloads) на /app/data
+      - ./log/Log_librusecBase_bot.log:/app/log/Log_librusecBase_bot.log
+      - ./data/pending_users_librusec.json:/app/data/pending_users_librusec.json
+      - ./data/users_librusec.json:/app/data/users_librusec.json
+      - E:/Books/BotsTG/reader_data.db:/app/data/reader_data.db
+      
+    environment:
+      # Теперь используется токен Librusec
+      BOT_TOKEN: ${LIBRUSEC_TOKEN} 
+      ADMIN_IDS: ${ADMIN_IDS}
+      
+      # Путь INPX внутри контейнера
+      INPX_FILE: /app/books/librusec_local_fb2.inpx 
+      BOOKS_DIR: /app/books
+      # Остальные пути, если они используются в коде
+      READER_FOLDER: /app/data/reader
+      DOWNLOAD_FOLDER: /app/data/downloads
+
